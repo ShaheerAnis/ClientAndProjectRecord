@@ -1,0 +1,58 @@
+{% extends 'base.html' %} {% block content %}
+<!-- Your specific content goes here -->
+
+<div class="container mt-4">
+  <div style="display: flex; justify-content: center; align-items: center">
+    <div class="col-md-8 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">
+            <a href="{{ url_for('employee_list') }}">
+              <span class="mdi mdi-arrow-left-circle-outline"></span> </a
+            >Add New Employee
+          </h4>
+          <form
+            class="forms-sample"
+            method="POST"
+            action="{{ url_for('add_employee') }}"
+            style="color: #6c7293"
+          >
+            <div class="form-group row">
+              <label for="name" class="col-sm-3 col-form-label">Name</label>
+              <div class="col-sm-9">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="name"
+                  id="name"
+                  placeholder="Name"
+                  style="color: #6c7293"
+                />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="role" class="col-sm-3 col-form-label">Role</label>
+              <div class="col-sm-9">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="role"
+                  name="role"
+                  placeholder="Role"
+                  required
+                  style="color: #6c7293"
+                />
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary me-2">
+              Add Employee
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

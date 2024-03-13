@@ -1,0 +1,83 @@
+{% extends 'base.html' %} {% block content %}
+<!-- Your specific content goes here -->
+
+<div class="container mt-4">
+  <div style="display: flex; justify-content: center; align-items: center">
+    <div class="col-md-8 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">
+            <a href="{{ url_for('client_list') }}">
+              <span class="mdi mdi-arrow-left-circle-outline"></span> </a
+            >Add New Client
+          </h4>
+          <form
+            class="forms-sample"
+            method="POST"
+            action="{{ url_for('add_client') }}"
+            style="color: #6c7293"
+          >
+            <!-- Add image input field -->
+            <!--<div class="form-group row">
+              <label for="image" class="col-sm-3 col-form-label">Image</label>
+              <div class="col-sm-9">
+                <input
+                  type="file"
+                  class="form-control"
+                  id="image"
+                  name="image"
+                  style="color: #6c7293"
+                />
+              </div>
+            </div>-->
+            <!-- End of image input field -->
+            <div class="form-group row">
+              <label for="name" class="col-sm-3 col-form-label">Name</label>
+              <div class="col-sm-9">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="name"
+                  id="name"
+                  placeholder="Name"
+                  style="color: #6c7293"
+                />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="email" class="col-sm-3 col-form-label">Email</label>
+              <div class="col-sm-9">
+                <input
+                  type="email"
+                  class="form-control"
+                  id="email"
+                  name="email"
+                  placeholder="Email"
+                  style="color: #6c7293"
+                />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="number" class="col-sm-3 col-form-label">Number</label>
+              <div class="col-sm-9">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="number"
+                  name="number"
+                  placeholder="Number"
+                  style="color: #6c7293"
+                />
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary me-2">
+              Add Client
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

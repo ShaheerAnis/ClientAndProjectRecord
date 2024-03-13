@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Subtasks for Task: {{ task.title }}</title>
+  </head>
+  <body>
+    <h1>Subtasks for Task: {{ task.title }}</h1>
+
+    <h2>All Subtasks:</h2>
+    <ul>
+      {% for subtask in subtasks %}
+      <li>
+        <strong>Title:</strong> {{ subtask.title }}<br />
+        <strong>Description:</strong> {{ subtask.description }}<br />
+        <strong>Created On:</strong> {{ subtask.created_on }}<br />
+        <!-- Add links for editing and deleting subtasks if needed -->
+      </li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>

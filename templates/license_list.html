@@ -1,0 +1,64 @@
+{% extends 'base.html' %} {% block content %}
+<div class="container mt-4">
+  <h1>Licences</h1>
+  <div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>App</th>
+
+                <th>License Key</th>
+                <th></th>
+
+                <th>
+                  <form method="GET" action="{{ url_for('add_license') }}">
+                    <button type="submit" class="btn btn-primary">
+                      <span class="mdi mdi-plus"></span>
+                    </button>
+                  </form>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for password in licenses %}
+              <tr>
+                <td>{{password.app }}</td>
+                <td>{{ password.license }}</td>
+
+                <td>
+                  <form
+                    method="GET"
+                    action="{{ url_for('edit_license', license_id=password._id) }}"
+                  >
+                    <button type="submit" class="btn btn-primary">
+                      <span class="mdi mdi-open-in-new"></span>
+                    </button>
+                  </form>
+                </td>
+                <td>
+                  <form
+                    method="POST"
+                    action="{{ url_for('delete_license', license_id=password._id) }}"
+                  >
+                    <button
+                      type="submit"
+                      class="btn btn-danger"
+                      onclick="return confirm('Are you sure you want to delete this License?')"
+                    >
+                      <span class="mdi mdi-delete"></span>
+                    </button>
+                  </form>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

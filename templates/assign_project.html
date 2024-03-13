@@ -1,0 +1,148 @@
+<!--<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Assign Project</title>
+  </head>
+  <body>
+    <h1>Assign Project</h1>
+    <form method="POST" id="assignForm">
+      <label>Select Employees:</label><br />
+      {% for employee in employees %} {% set checked = employee._id in
+      project.employees|map(attribute='_id') %}
+      <input
+        type="checkbox"
+        id="employee{{ employee.id }}"
+        name="employees"
+        value="{{ employee._id }}"
+        {%
+        if
+        checked
+        %}
+        checked
+        {%
+        endif
+        %}
+      />
+      <label for="employee{{ employee._id }}">{{ employee.name }}</label><br />
+      {% endfor %}
+      <button type="submit">Assign</button>
+    </form>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var checkboxes = document.querySelectorAll("input[type='checkbox']");
+        checkboxes.forEach(function (checkbox) {
+          checkbox.addEventListener("change", function () {
+            var formData = new FormData(document.getElementById("assignForm"));
+            if (!this.checked) {
+              formData.delete("employees", this.value);
+            }
+            fetch("/assign_project/{{ project._id }}", {
+              method: "POST",
+              body: formData,
+            })
+              .then(function (response) {
+                if (!response.ok) {
+                  console.error("Failed to update project");
+                }
+              })
+              .catch(function (error) {
+                console.error("Error:", error);
+              });
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
+
+
+
+-->
+
+{% extends 'base.html' %} {% block content %}
+<div class="container mt-4">
+  <div style="display: flex; justify-content: center; align-items: center">
+    <div class="col-md-8 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">
+            <a href="{{ url_for('task_list') }}">
+              <span class="mdi mdi-arrow-left-circle-outline"></span>
+            </a>
+            Assign Employee to {{project.title}}
+          </h4>
+          <form
+            class="forms-sample"
+            method="POST"
+            action="{{ url_for('assign_project', project_id=project._id) }}"
+            style="color: #6c7293"
+            id="assignForm"
+          >
+            <div class="form-group row">
+              <label for="employees" class="col-sm-3 col-form-label"
+                >Select Employees:</label
+              >
+              <div class="col-sm-9">
+                {% for employee in employees %} {% set checked = employee._id in
+                project.employees|map(attribute='_id') %}
+                <div class="form-check">
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    id="employee{{ employee._id }}"
+                    name="employees"
+                    value="{{ employee._id }}"
+                    {%
+                    if
+                    checked
+                    %}
+                    checked
+                    {%
+                    endif
+                    %}
+                  />
+                  <label
+                    class="form-check-label"
+                    for="employee{{ employee._id }}"
+                    >{{ employee.name }}</label
+                  >
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary me-2">Assign</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    var checkboxes = document.querySelectorAll("input[type='checkbox']");
+    checkboxes.forEach(function (checkbox) {
+      checkbox.addEventListener("change", function () {
+        var formData = new FormData(document.getElementById("assignForm"));
+        if (!this.checked) {
+          formData.delete("employees", this.value);
+        }
+        fetch("/assign_project/{{ project._id }}", {
+          method: "POST",
+          body: formData,
+        })
+          .then(function (response) {
+            if (!response.ok) {
+              console.error("Failed to update project");
+            }
+          })
+          .catch(function (error) {
+            console.error("Error:", error);
+          });
+      });
+    });
+  });
+</script>
+{% endblock %}

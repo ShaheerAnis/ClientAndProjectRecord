@@ -1,0 +1,93 @@
+{% extends 'base.html' %} {% block content %}
+<div class="container mt-4">
+  <h1>Clients</h1>
+  <div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Name</th>
+
+                <th>Earned</th>
+                <th>Projects</th>
+                <th>Pending Price</th>
+                <th>Pending Proj</th>
+                <th>Completed Proj</th>
+                <th></th>
+
+                <th>
+                  <form method="GET" action="{{ url_for('add_client') }}">
+                    <button type="submit" class="btn btn-primary">
+                      <span class="mdi mdi-plus"></span>
+                    </button>
+                  </form>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {% set counter = 0 %} {% for client in clients %}
+              <tr>
+                <td>
+                  <!-- <div class="count-indicator">
+                    <img
+                      class="img-xs rounded-circle"
+                      src="{{ url_for('static', filename='theme/assets/images/faces/face15.jpg') }}"
+                      alt=""
+                    />
+                    <span class="count bg-success"></span>
+                  </div>-->
+                  {{client._id}}
+                </td>
+                <td>
+                  <a
+                    href="{{ url_for('edit_client', client_id=client._id) }}"
+                    style="color: #6c7293; text-decoration: none"
+                  >
+                    {{ client.name[:12] }}{% if client.name|length > 12 %}...{%
+                    endif %}
+                    <span
+                      class="mdi mdi-open-in-new"
+                      style="color: #0d6efd"
+                    ></span>
+                  </a>
+                </td>
+                <td>{{ total_price_earned_per_client[client._id] }} Pkr</td>
+                <td>{{total_tasks_count}}</td>
+                <td>{{total_price_pending_per_client[client._id]}} Pkr</td>
+                <td>{{ task_counts[client._id][0] }}</td>
+                <td>{{ task_counts[client._id][1] }}</td>
+
+                <td>
+                  <form
+                    method="GET"
+                    action="{{ url_for('add_task', client_id=client._id) }}"
+                  >
+                    <button type="submit" class="btn btn-primary">
+                      <span class="mdi mdi-plus"></span>
+                    </button>
+                  </form>
+                </td>
+
+                <td>
+                  <form
+                    method="GET"
+                    action="{{ url_for('client_tasks', client_id=client._id) }}"
+                  >
+                    <button type="submit" class="btn btn-info">
+                      <span class="mdi mdi-eye-outline"></span>
+                    </button>
+                  </form>
+                </td>
+              </tr>
+              {% set counter = counter + 1 %} {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

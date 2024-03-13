@@ -1,0 +1,97 @@
+
+
+  {% extends 'base.html' %} {% block content %}
+  <div class="container mt-4">
+    
+    <h1>{{client.name}} Projects</h1>
+    <div class="col-lg-12 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table">
+              
+
+                <form method="GET" action="{{ url_for('client_list') }}">
+                  <button type="submit" class="btn btn-primary">
+                    <span class="mdi mdi-arrow-left-circle-outline"></span>
+                  </button>
+                </form>
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Description</th>
+                  <th>Client</th>
+                  <th>Status</th>
+                  <th>Total Price</th>
+                  <th>Price Paid</th>
+                  <th>Advance</th>
+                  <th>Price Pending</th>
+                  <th></th>
+                  <th></th>
+                  
+                  <th>
+                    <a href="{{ url_for('add_license') }}"
+                    ><span class="menu-icon">
+                      <i class="mdi mdi-plus" style="color: yellow;"></i>
+                    </span></span
+                  ></a>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for task in tasks %}
+                <tr>
+                  
+                  <td>{{ task.title }}</td>
+                  <td>{{ task.description }}</td>
+                  <td>{{ task.client.name }}</td>
+                  
+                  <td>
+                    {% if task.status == False %} Pending {% else %} Completed {% endif %}
+                  </td>
+                  <td>{{ task.price }} Pkr</td>
+                  <td>{{ task.price_paid }} Pkr</td>
+                  <td>{{ task.advance_paid }} Pkr</td>
+                  <td><b>{{leftPerTask[task._id]}}Pkr</b></td>
+                  <td>
+                    <a href="{{ url_for('edit_task', task_id=task._id) }}"
+                    ><span class="menu-icon">
+                      <i class="mdi mdi-square-edit-outline" style="color: yellow;"></i>
+                    </span></span
+                  ></a>
+                   </td>
+
+                  
+          <td>
+
+            <a href="{{ url_for('add_subtask', task_id=task._id) }}"
+                    ><span class="menu-icon">
+                      <i class="mdi mdi-file-tree" style="color: yellow;"></i>
+                    </span></span
+                  ></a>
+
+
+
+            <td>
+
+              <a href="{{ url_for('view_subtasks', task_id=task._id) }}"
+                    ><span class="menu-icon">
+                      <i class="mdi mdi-eye-outline" style="color: yellow;"></i>
+                    </span></span
+                  ></a>
+
+
+          </td>
+          </td>
+                  
+                </tr>
+                 {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endblock %}
+  
